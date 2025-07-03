@@ -3,13 +3,18 @@ import "./SortingVisualiser.css";
 
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
+    const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubble");
 
     const resetArray = () => {
         const newArray = [];
-        for (let i = 0; i < 150; i++) { // feel free to increase/decrease
-            newArray.push(randomIntFromInterval(5, 400)); // lower max height for screen fit
+        for (let i = 0; i < 150; i++) {
+            newArray.push(randomIntFromInterval(5, 400));
         }
         setArray(newArray);
+    };
+
+    const handleAlgorithmChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedAlgorithm(event.target.value);
     };
 
     useEffect(() => {
@@ -19,7 +24,24 @@ const SortingVisualiser = () => {
     return (
         <div className="visualiser_wrapper">
             <h1>Sorting Visualiser</h1>
-            <button onClick={resetArray}>Reset Array</button>
+
+            <div className="controls">
+                <button onClick={resetArray}>Reset Array</button>
+
+                <select
+                    id="algorithm-select"
+                    value={selectedAlgorithm}
+                    onChange={handleAlgorithmChange}
+                >
+                    <option value="bubble">Bubble</option>
+                    <option value="merge">Merge</option>
+                    <option value="quick">Quick</option>
+                    <option value="heap">Heap</option>
+                </select>
+
+                <button >Sort</button>
+
+            </div>
 
             <div className="array_container">
                 {array.map((value, i) => (

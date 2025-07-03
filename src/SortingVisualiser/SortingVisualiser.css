@@ -6,6 +6,12 @@
   height: 100vh;
 }
 
+.controls {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+
 .array_container {
   display: flex;
   align-items: flex-end; /* makes bars grow upward */
