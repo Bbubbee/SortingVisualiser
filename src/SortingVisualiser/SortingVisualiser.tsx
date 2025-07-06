@@ -18,10 +18,10 @@ const SortingVisualiser = () => {
         setSelectedAlgorithm(event.target.value);
     };
 
-    const sort = () => {
+    const sort = async () => {
         switch (selectedAlgorithm) {
             case "bubble":
-                setArray(bubbleSort(array));
+                await bubbleSort(array, setArray);
                 break;
             case "merge":
                 // Merge sort logic here

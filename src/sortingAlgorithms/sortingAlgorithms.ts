@@ -2,7 +2,10 @@ export const mergeSort = () => {
   console.log("merge sort");
 };
 
-export const bubbleSort = (arr: number[]) => {
+export const bubbleSort = async (
+  arr: number[],
+  setArray: (arr: number[]) => void
+) => {
   // Copy of the array.
   const array = [...arr];
 
@@ -14,9 +17,14 @@ export const bubbleSort = (arr: number[]) => {
         let temp = array[j];
         array[j] = array[j + 1];
         array[j + 1] = temp;
+
+        setArray([...array]);
+        await sleep(10);
       }
     }
   }
 
   return array;
 };
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
