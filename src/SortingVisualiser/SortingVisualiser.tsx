@@ -5,13 +5,15 @@ import { bubbleSort } from "../sortingAlgorithms/sortingAlgorithms"
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubble");
+    const [highlightedIndices, setHighlightedIndices] = useState<number[]>([]);
 
     const resetArray = () => {
         const newArray = [];
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 50; i++) {
             newArray.push(randomIntFromInterval(5, 400));
         }
         setArray(newArray);
+        setHighlightedIndices([]);
     };
 
     const handleAlgorithmChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -21,7 +23,7 @@ const SortingVisualiser = () => {
     const sort = async () => {
         switch (selectedAlgorithm) {
             case "bubble":
-                await bubbleSort(array, setArray);
+                await bubbleSort(array, setArray, setHighlightedIndices);
                 break;
             case "merge":
                 // Merge sort logic here
@@ -71,7 +73,7 @@ const SortingVisualiser = () => {
                     <div
                         className="array_bar"
                         key={i}
-                        style={{ height: `${value}px` }}
+                        style={{ height: `${value}px`, backgroundColor: highlightedIndices.includes(i) ? "red" : "pink" }}
                     ></div>
                 ))}
             </div>
