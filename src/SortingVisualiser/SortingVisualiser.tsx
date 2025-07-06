@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./SortingVisualiser.css";
+import { bubbleSort } from "../sortingAlgorithms/sortingAlgorithms"
 
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
@@ -17,9 +18,31 @@ const SortingVisualiser = () => {
         setSelectedAlgorithm(event.target.value);
     };
 
+    const sort = () => {
+        switch (selectedAlgorithm) {
+            case "bubble":
+                setArray(bubbleSort(array));
+                break;
+            case "merge":
+                // Merge sort logic here
+                break;
+            case "quick":
+                // Quick sort logic here
+                break;
+            case "heap":
+                // Heap sort logic here
+                break;
+            default:
+                // Optional: handle unknown algorithm
+                break;
+        }
+    }
+
     useEffect(() => {
         resetArray();
     }, []);
+
+
 
     return (
         <div className="visualiser_wrapper">
@@ -39,7 +62,7 @@ const SortingVisualiser = () => {
                     <option value="heap">Heap</option>
                 </select>
 
-                <button >Sort</button>
+                <button onClick={sort}>Sort</button>
 
             </div>
 
