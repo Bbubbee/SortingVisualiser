@@ -1,3 +1,5 @@
+import type { Highlight } from "../types";
+
 export const mergeSort = () => {
   console.log("merge sort");
 };
@@ -5,7 +7,7 @@ export const mergeSort = () => {
 export const bubbleSort = async (
   arr: number[],
   setArray: (arr: number[]) => void,
-  setHighlightedIndices: (arr: number[]) => void
+  setHighlightedIndices: (arr: Highlight[]) => void
 ) => {
   // Copy of the array.
   const array = [...arr];
@@ -15,8 +17,11 @@ export const bubbleSort = async (
     // Go through each number in the array, comparing it with the number ahead.
     for (let j = 0; j < array.length - i - 1; j++) {
       // Highlight the two bars being compared
-      setHighlightedIndices([j, j + 1]);
-      // await sleep(10);
+      setHighlightedIndices([
+        { index: j, color: "green" },
+        { index: j + 1, color: "red" },
+      ]);
+      await sleep(500);
 
       if (array[j] > array[j + 1]) {
         let temp = array[j];
@@ -25,7 +30,12 @@ export const bubbleSort = async (
 
         setArray([...array]);
 
-        await sleep(10);
+        setHighlightedIndices([
+          { index: j, color: "green" },
+          { index: j + 1, color: "red" },
+        ]);
+
+        await sleep(500);
       }
     }
   }

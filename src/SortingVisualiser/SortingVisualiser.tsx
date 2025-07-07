@@ -2,14 +2,18 @@ import { useState, useEffect } from "react";
 import "./SortingVisualiser.css";
 import { bubbleSort } from "../sortingAlgorithms/sortingAlgorithms"
 
+import type { Highlight } from "../types";
+
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubble");
-    const [highlightedIndices, setHighlightedIndices] = useState<number[]>([]);
+
+    const [highlightedIndices, setHighlightedIndices] = useState<Highlight[]>([]);
+
 
     const resetArray = () => {
         const newArray = [];
-        for (let i = 0; i < 50; i++) {
+        for (let i = 0; i < 10; i++) {
             newArray.push(randomIntFromInterval(5, 400));
         }
         setArray(newArray);
@@ -69,13 +73,19 @@ const SortingVisualiser = () => {
             </div>
 
             <div className="array_container">
-                {array.map((value, i) => (
-                    <div
-                        className="array_bar"
-                        key={i}
-                        style={{ height: `${value}px`, backgroundColor: highlightedIndices.includes(i) ? "red" : "pink" }}
-                    ></div>
-                ))}
+                {array.map((value, i) => {
+                    const highlight = highlightedIndices.find(h => h.index === i);
+                    return (
+                        <div
+                            className="array_bar"
+                            key={i}
+                            style={{
+                                height: `${value}px`,
+                                backgroundColor: highlight ? highlight.color : "pink"
+                            }}
+                        ></div>
+                    );
+                })}
             </div>
         </div>
     );
