@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./SortingVisualiser.css";
-import { bubbleSort } from "../sortingAlgorithms/sortingAlgorithms"
+import { bubbleSort, insertSort } from "../sortingAlgorithms/sortingAlgorithms"
 
 import type { Highlight } from "../types";
 
@@ -29,6 +29,9 @@ const SortingVisualiser = () => {
             case "bubble":
                 await bubbleSort(array, setArray, setHighlightedIndices);
                 break;
+            case "insert":
+                await insertSort(array, setArray, setHighlightedIndices);
+                break;
             case "merge":
                 // Merge sort logic here
                 break;
@@ -42,6 +45,7 @@ const SortingVisualiser = () => {
                 // Optional: handle unknown algorithm
                 break;
         }
+        setHighlightedIndices([]);
     }
 
     useEffect(() => {
@@ -64,7 +68,7 @@ const SortingVisualiser = () => {
                 >
                     <option value="bubble">Bubble</option>
                     <option value="merge">Merge</option>
-                    <option value="quick">Quick</option>
+                    <option value="insert">Insert</option>
                     <option value="heap">Heap</option>
                 </select>
 
