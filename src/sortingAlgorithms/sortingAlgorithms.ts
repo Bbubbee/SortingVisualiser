@@ -21,7 +21,7 @@ export const bubbleSort = async (
         { index: j, color: "green" },
         { index: j + 1, color: "red" },
       ]);
-      await sleep(500);
+      await sleep(10);
 
       if (array[j] > array[j + 1]) {
         let temp = array[j];
@@ -35,7 +35,7 @@ export const bubbleSort = async (
           { index: j + 1, color: "green" },
         ]);
 
-        await sleep(500);
+        await sleep(10);
       }
     }
   }
@@ -48,22 +48,38 @@ export const insertSort = async (
 ) => {
   const array = [...arr];
 
-  // Go each item in the array.
   for (let i = 1; i < array.length; i++) {
-    const value = array[i];
+    const val = array[i];
     let j = i - 1;
 
-    for (j; j >= 0; j--) {
-      if (array[j] > value) {
-        array[j + 1] = array[j];
-      } else {
-        break;
-      }
+    // Highlight the current value being inserted
+    setHighlightedIndices([{ index: i, color: "yellow" }]);
+    await sleep(100);
+
+    while (j >= 0 && array[j] > val) {
+      // Highlight the comparison
+      setHighlightedIndices([
+        { index: j, color: "red" },
+        { index: j + 1, color: "blue" }, // This is the one being shifted
+      ]);
+      await sleep(100);
+
+      array[j + 1] = array[j]; // Shift the bigger number right
+      setArray([...array]); // Re-render after shift
+      j--;
     }
 
-    array[j + 1] = value;
+    // Insert the value into its correct spot
+    array[j + 1] = val;
+    setArray([...array]);
+
+    // Highlight the inserted value
+    setHighlightedIndices([{ index: j + 1, color: "green" }]);
+    await sleep(100);
+
+    // Clear highlights after each insertion
+    setHighlightedIndices([]);
   }
-  setArray(array);
 };
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

@@ -6,14 +6,14 @@ import type { Highlight } from "../types";
 
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
-    const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubble");
+    const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("insert");
 
     const [highlightedIndices, setHighlightedIndices] = useState<Highlight[]>([]);
 
 
     const resetArray = () => {
         const newArray = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 100; i++) {
             newArray.push(randomIntFromInterval(5, 400));
         }
         setArray(newArray);
