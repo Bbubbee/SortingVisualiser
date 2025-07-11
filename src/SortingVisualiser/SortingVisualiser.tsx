@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import "./SortingVisualiser.css";
 import { bubbleSort, insertSort } from "../sortingAlgorithms/sortingAlgorithms"
+import Slider from '@mui/material/Slider';
 
 import type { Highlight } from "../types";
 
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("insert");
+    const [arraySize, setArraySize] = useState<number>(20);
 
     const [highlightedIndices, setHighlightedIndices] = useState<Highlight[]>([]);
 
-
-    const resetArray = () => {
+    const resetArray = (size: number) => {
         const newArray = [];
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < size; i++) {
             newArray.push(randomIntFromInterval(5, 400));
         }
         setArray(newArray);
@@ -48,8 +49,14 @@ const SortingVisualiser = () => {
         setHighlightedIndices([]);
     }
 
+    // Slider change handler
+    const handleArraySizeChange = (_event: Event, value: number) => {
+        setArraySize(value);
+        resetArray(value);
+    };
+
     useEffect(() => {
-        resetArray();
+        resetArray(arraySize);
     }, []);
 
 
@@ -58,8 +65,17 @@ const SortingVisualiser = () => {
         <div className="visualiser_wrapper">
             <h1>Sorting Visualiser</h1>
 
+            <Slider
+                value={arraySize}
+                aria-label="Array Size"
+                valueLabelDisplay="auto"
+                max={200}
+                min={1}
+                onChange={handleArraySizeChange}
+            />
+
             <div className="controls">
-                <button onClick={resetArray}>Reset Array</button>
+                <button onClick={() => resetArray(arraySize)}>Reset Array</button>
 
                 <select
                     id="algorithm-select"
