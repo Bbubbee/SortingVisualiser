@@ -9,6 +9,7 @@ const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("insert");
     const [arraySize, setArraySize] = useState<number>(20);
+    const [speed, setSpeed] = useState<number>(50);
 
     const [highlightedIndices, setHighlightedIndices] = useState<Highlight[]>([]);
 
@@ -28,7 +29,7 @@ const SortingVisualiser = () => {
     const sort = async () => {
         switch (selectedAlgorithm) {
             case "bubble":
-                await bubbleSort(array, setArray, setHighlightedIndices);
+                await bubbleSort(array, setArray, setHighlightedIndices, speed);
                 break;
             case "insert":
                 await insertSort(array, setArray, setHighlightedIndices);
@@ -55,6 +56,10 @@ const SortingVisualiser = () => {
         resetArray(value);
     };
 
+    const handleSpeedChange = (_event: Event, value: number) => {
+        setSpeed(value);
+    };
+
     useEffect(() => {
         resetArray(arraySize);
     }, []);
@@ -65,6 +70,7 @@ const SortingVisualiser = () => {
         <div className="visualiser_wrapper">
             <h1>Sorting Visualiser</h1>
 
+            Size
             <Slider
                 value={arraySize}
                 aria-label="Array Size"
@@ -72,6 +78,16 @@ const SortingVisualiser = () => {
                 max={200}
                 min={1}
                 onChange={handleArraySizeChange}
+            />
+
+            Speed
+            <Slider
+                value={speed}
+                aria-label="Speed"
+                valueLabelDisplay="auto"
+                max={100}
+                min={1}
+                onChange={handleSpeedChange}
             />
 
             <div className="controls">

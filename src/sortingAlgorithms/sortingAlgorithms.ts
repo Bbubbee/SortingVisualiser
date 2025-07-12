@@ -7,7 +7,8 @@ export const mergeSort = () => {
 export const bubbleSort = async (
   arr: number[],
   setArray: (arr: number[]) => void,
-  setHighlightedIndices: (arr: Highlight[]) => void
+  setHighlightedIndices: (arr: Highlight[]) => void,
+  speed: number
 ) => {
   // Copy of the array.
   const array = [...arr];
@@ -21,7 +22,7 @@ export const bubbleSort = async (
         { index: j, color: "green" },
         { index: j + 1, color: "red" },
       ]);
-      await sleep(10);
+      await sleep(speed);
 
       if (array[j] > array[j + 1]) {
         let temp = array[j];
@@ -35,7 +36,7 @@ export const bubbleSort = async (
           { index: j + 1, color: "green" },
         ]);
 
-        await sleep(10);
+        await sleep(speed);
       }
     }
   }
