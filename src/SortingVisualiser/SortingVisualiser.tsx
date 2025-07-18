@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import "./SortingVisualiser.css";
-import { bubbleSort, insertSort } from "../sortingAlgorithms/sortingAlgorithms"
+import { bubbleSort, insertSort, mergeSort } from "../sortingAlgorithms/sortingAlgorithms"
 import Slider from '@mui/material/Slider';
 
 import type { Highlight } from "../types";
 
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
-    const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("insert");
+    const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("merge");
     const [arraySize, setArraySize] = useState<number>(20);
     const [speed, setSpeed] = useState<number>(50);
 
@@ -32,10 +32,11 @@ const SortingVisualiser = () => {
                 await bubbleSort(array, setArray, setHighlightedIndices, speed);
                 break;
             case "insert":
-                await insertSort(array, setArray, setHighlightedIndices);
+                await insertSort(array, setArray, setHighlightedIndices, speed);
                 break;
             case "merge":
                 // Merge sort logic here
+                mergeSort(array);
                 break;
             case "quick":
                 // Quick sort logic here
@@ -119,7 +120,9 @@ const SortingVisualiser = () => {
                                 height: `${value}px`,
                                 backgroundColor: highlight ? highlight.color : "pink"
                             }}
-                        ></div>
+                        >
+                            <span className="bar_tooltip">{value}</span>
+                        </div>
                     );
                 })}
             </div>

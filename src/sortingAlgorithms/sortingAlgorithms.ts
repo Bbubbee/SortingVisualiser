@@ -1,7 +1,19 @@
 import type { Highlight } from "../types";
 
-export const mergeSort = () => {
-  console.log("merge sort");
+export const mergeSort = (arr: number[]) => {
+  const array = [...arr];
+  const length = array.length;
+
+  if (length < 2) {
+    return;
+  }
+
+  const midIndex = Math.floor(length / 2);
+  const leftHalf = array.slice(0, midIndex);
+  const rightHalf = array.slice(midIndex);
+
+  console.log(leftHalf);
+  console.log(rightHalf);
 };
 
 export const bubbleSort = async (
@@ -45,7 +57,8 @@ export const bubbleSort = async (
 export const insertSort = async (
   arr: number[],
   setArray: (arr: number[]) => void,
-  setHighlightedIndices: (arr: Highlight[]) => void
+  setHighlightedIndices: (arr: Highlight[]) => void,
+  speed: number // <-- add speed parameter
 ) => {
   const array = [...arr];
 
@@ -55,7 +68,7 @@ export const insertSort = async (
 
     // Highlight the current value being inserted
     setHighlightedIndices([{ index: i, color: "yellow" }]);
-    await sleep(100);
+    await sleep(speed);
 
     while (j >= 0 && array[j] > val) {
       // Highlight the comparison
@@ -63,7 +76,7 @@ export const insertSort = async (
         { index: j, color: "red" },
         { index: j + 1, color: "blue" }, // This is the one being shifted
       ]);
-      await sleep(100);
+      await sleep(speed);
 
       array[j + 1] = array[j]; // Shift the bigger number right
       setArray([...array]); // Re-render after shift
@@ -76,7 +89,7 @@ export const insertSort = async (
 
     // Highlight the inserted value
     setHighlightedIndices([{ index: j + 1, color: "green" }]);
-    await sleep(100);
+    await sleep(speed);
 
     // Clear highlights after each insertion
     setHighlightedIndices([]);
