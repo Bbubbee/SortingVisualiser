@@ -36,7 +36,7 @@ const SortingVisualiser = () => {
                 break;
             case "merge":
                 // Merge sort logic here
-                mergeSort(array);
+                setArray(mergeSort(array));
                 break;
             case "quick":
                 // Quick sort logic here

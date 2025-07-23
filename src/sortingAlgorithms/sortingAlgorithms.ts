@@ -1,19 +1,34 @@
 import type { Highlight } from "../types";
 
-export const mergeSort = (arr: number[]) => {
-  const array = [...arr];
-  const length = array.length;
-
-  if (length < 2) {
-    return;
+export const mergeSort = (arr: number[]): number[] => {
+  if (arr.length < 2) {
+    return arr;
   }
 
-  const midIndex = Math.floor(length / 2);
-  const leftHalf = array.slice(0, midIndex);
-  const rightHalf = array.slice(midIndex);
+  const midIndex = Math.floor(arr.length / 2);
+  const leftHalf = mergeSort(arr.slice(0, midIndex));
+  const rightHalf = mergeSort(arr.slice(midIndex));
 
-  console.log(leftHalf);
-  console.log(rightHalf);
+  return merge(leftHalf, rightHalf);
+};
+
+const merge = (left: number[], right: number[]): number[] => {
+  let result: number[] = [];
+  let i = 0,
+    j = 0;
+
+  while (i < left.length && j < right.length) {
+    if (left[i] <= right[j]) {
+      result.push(left[i]);
+      i++;
+    } else {
+      result.push(right[j]);
+      j++;
+    }
+  }
+
+  // Push remaining elements
+  return result.concat(left.slice(i)).concat(right.slice(j));
 };
 
 export const bubbleSort = async (
