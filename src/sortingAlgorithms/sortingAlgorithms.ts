@@ -1,5 +1,10 @@
 import type { Highlight } from "../types";
 
+export const mergeSortHelper = (arr: number[]) => {
+  // Call merge sort
+  let merged = mergeSort(arr);
+};
+
 export const mergeSort = (arr: number[]): number[] => {
   if (arr.length < 2) {
     return arr;

@@ -7,7 +7,7 @@ import type { Highlight } from "../types";
 
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
-    const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("merge");
+    const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubble");
     const [arraySize, setArraySize] = useState<number>(20);
     const [speed, setSpeed] = useState<number>(50);
 
@@ -27,12 +27,15 @@ const SortingVisualiser = () => {
     };
 
     const sort = async () => {
+
+        let newSpeed = (100 - speed) / 10
+
         switch (selectedAlgorithm) {
             case "bubble":
-                await bubbleSort(array, setArray, setHighlightedIndices, speed);
+                await bubbleSort(array, setArray, setHighlightedIndices, newSpeed);
                 break;
             case "insert":
-                await insertSort(array, setArray, setHighlightedIndices, speed);
+                await insertSort(array, setArray, setHighlightedIndices, newSpeed);
                 break;
             case "merge":
                 // Merge sort logic here
@@ -41,9 +44,6 @@ const SortingVisualiser = () => {
             case "quick":
                 // Quick sort logic here
                 break;
-            case "heap":
-                // Heap sort logic here
-                break;
             default:
                 // Optional: handle unknown algorithm
                 break;
@@ -51,7 +51,6 @@ const SortingVisualiser = () => {
         setHighlightedIndices([]);
     }
 
-    // Slider change handler
     const handleArraySizeChange = (_event: Event, value: number) => {
         setArraySize(value);
         resetArray(value);
@@ -64,8 +63,6 @@ const SortingVisualiser = () => {
     useEffect(() => {
         resetArray(arraySize);
     }, []);
-
-
 
     return (
         <div className="visualiser_wrapper">
@@ -102,7 +99,6 @@ const SortingVisualiser = () => {
                     <option value="bubble">Bubble</option>
                     <option value="merge">Merge</option>
                     <option value="insert">Insert</option>
-                    <option value="heap">Heap</option>
                 </select>
 
                 <button onClick={sort}>Sort</button>
@@ -125,6 +121,11 @@ const SortingVisualiser = () => {
                         </div>
                     );
                 })}
+            </div>
+
+            <div>
+                <h2>Time Complexity</h2>
+                <h2>Code</h2>
             </div>
         </div>
     );
