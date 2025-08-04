@@ -1,9 +1,9 @@
 import type { Highlight } from "../types";
 
-export const mergeSortHelper = (arr: number[]) => {
-  // Call merge sort
-  let merged = mergeSort(arr);
-};
+// export const mergeSortHelper = (arr: number[]) => {
+//   // Call merge sort
+//   let merged = mergeSort(arr);
+// };
 
 export const mergeSort = (arr: number[]): number[] => {
   if (arr.length < 2) {
@@ -103,7 +103,7 @@ export const insertSort = async (
       j--;
     }
 
-    // Insert the value into its correct spot
+    // Insert the value into its correct  spot
     array[j + 1] = val;
     setArray([...array]);
 
