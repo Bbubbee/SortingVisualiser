@@ -10,6 +10,7 @@ const SortingVisualiser = () => {
     const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubble");
     const [arraySize, setArraySize] = useState<number>(20);
     const [speed, setSpeed] = useState<number>(50);
+    const [isSorting, setIsSorting] = useState(false);
 
     const [highlightedIndices, setHighlightedIndices] = useState<Highlight[]>([]);
 
@@ -27,8 +28,8 @@ const SortingVisualiser = () => {
     };
 
     const sort = async () => {
-
-        let newSpeed = (100 - speed) / 10
+        setIsSorting(true);
+        let newSpeed = (100 - speed) / 5
 
         switch (selectedAlgorithm) {
             case "bubble":
@@ -48,6 +49,7 @@ const SortingVisualiser = () => {
                 // Optional: handle unknown algorithm
                 break;
         }
+        setIsSorting(false);
         setHighlightedIndices([]);
     }
 
@@ -76,6 +78,7 @@ const SortingVisualiser = () => {
                 max={200}
                 min={1}
                 onChange={handleArraySizeChange}
+                disabled={isSorting}
             />
 
             Speed
@@ -86,22 +89,24 @@ const SortingVisualiser = () => {
                 max={100}
                 min={1}
                 onChange={handleSpeedChange}
+                disabled={isSorting}
             />
 
             <div className="controls">
-                <button onClick={() => resetArray(arraySize)}>Reset Array</button>
+                <button disabled={isSorting} onClick={() => resetArray(arraySize)}>Reset Array</button>
 
                 <select
                     id="algorithm-select"
                     value={selectedAlgorithm}
                     onChange={handleAlgorithmChange}
+                    disabled={isSorting}
                 >
                     <option value="bubble">Bubble</option>
                     <option value="merge">Merge</option>
                     <option value="insert">Insert</option>
                 </select>
 
-                <button onClick={sort}>Sort</button>
+                <button disabled={isSorting} onClick={sort}>Sort</button>
 
             </div>
 
