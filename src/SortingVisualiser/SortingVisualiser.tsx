@@ -5,6 +5,33 @@ import Slider from '@mui/material/Slider';
 
 import type { Highlight } from "../types";
 
+const algorithmInformation = [
+    {
+        id: "bubble",
+        timeComplexity: {
+            best: "O(n)",
+            average: "O(n²)",
+            worst: "O(n²)"
+        }
+    },
+    {
+        id: "insert",
+        timeComplexity: {
+            best: "O(n)",
+            average: "O(n²)",
+            worst: "O(n²)"
+        }
+    },
+    {
+        id: "merge",
+        timeComplexity: {
+            best: "O(n log n)",
+            average: "O(n log n)",
+            worst: "O(n log n)"
+        }
+    }
+]
+
 const SortingVisualiser = () => {
     const [array, setArray] = useState<number[]>([]);
     const [selectedAlgorithm, setSelectedAlgorithm] = useState<string>("bubble");
@@ -25,6 +52,7 @@ const SortingVisualiser = () => {
 
     const handleAlgorithmChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelectedAlgorithm(event.target.value);
+        console.log(selectedAlgorithm);  // TODO: get algorithm information item based on selected algo
     };
 
     const sort = async () => {
@@ -128,8 +156,24 @@ const SortingVisualiser = () => {
                 })}
             </div>
 
-            <div>
-                <h2>Time Complexity</h2>
+            <div className="algo_info">
+                <div>
+                    <h2>Time Complexity</h2>
+                    {(() => {
+                        const algoInfo = algorithmInformation.find(
+                            (algo) => algo.id === selectedAlgorithm
+                        );
+                        if (!algoInfo) return <p>No info available</p>;
+                        return (
+                            <ul className="time_complexity_info">
+                                <li>Best: {algoInfo.timeComplexity.best}</li>
+                                <li>Average: {algoInfo.timeComplexity.average}</li>
+                                <li>Worst: {algoInfo.timeComplexity.worst}</li>
+                            </ul>
+                        );
+                    })()}
+                </div>
+
                 <h2>Code</h2>
             </div>
         </div>
