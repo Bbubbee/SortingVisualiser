@@ -156,27 +156,25 @@ const SortingVisualiser = () => {
                 })}
             </div>
 
-            <div className="algo_info">
-                <div>
-                    <h2>Time Complexity</h2>
-                    {(() => {
-                        const algoInfo = algorithmInformation.find(
-                            (algo) => algo.id === selectedAlgorithm
-                        );
-                        if (!algoInfo) return <p>No info available</p>;
-                        return (
-                            <ul className="time_complexity_info">
-                                <li>Best: {algoInfo.timeComplexity.best}</li>
-                                <li>Average: {algoInfo.timeComplexity.average}</li>
-                                <li>Worst: {algoInfo.timeComplexity.worst}</li>
-                            </ul>
-                        );
-                    })()}
-                </div>
 
-                <h2>Code</h2>
+            <div className="time_complexity_card">
+                <h2>Time Complexity</h2>
+                {(() => {
+                    const algoInfo = algorithmInformation.find(
+                        (algo) => algo.id === selectedAlgorithm
+                    );
+                    if (!algoInfo) return <p>No info available</p>;
+                    return (
+                        <ul className="cases">
+                            <li>Best: {algoInfo.timeComplexity.best}</li>
+                            <li>Average: {algoInfo.timeComplexity.average}</li>
+                            <li>Worst: {algoInfo.timeComplexity.worst}</li>
+                        </ul>
+                    );
+                })()}
             </div>
         </div>
+
     );
 };
 
